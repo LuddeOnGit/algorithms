@@ -183,6 +183,7 @@ public abstract class MyQueueTestTemplate {
 
         assertEquals(quarter + half, queue.size());
 
+
         for(int i=quarter; i< n; i++){
             int res = queue.dequeue();
             assertEquals(i, res);
