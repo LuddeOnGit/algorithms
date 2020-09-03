@@ -14,18 +14,23 @@ public class MyRingArrayQueue<T> implements MyQueue {
     @Override
     public void enqueue(Object value) {
         if(isEmpty()){head= 0; tail = 0;}
-        else if(tail < data.length-1){tail++;}
+        else if(tail < data.length-1 && tail != head){tail++;}
         else{
             //check if space in front of head by adding one to the tail and doing modulo, such as (2 > (9+1) %10) True
-            if(head > (tail+1) % size()){
-                tail = (tail+1) % size();
+            /*
+            if(head > (tail+1) % data.length){
+                tail = (tail+1) % data.length;
             } else{
                 //copy array into double size array!
-                Object[] bigData = new Object[size()*2];
+                Object[] bigData = new Object[data.length*2];
                 for(int i = head; i < tail+1; i++){bigData[i] = data[i];}
                 data = bigData;
                 tail++;
-            }
+            }*/
+            Object[] bigData = new Object[data.length*2];
+            for(int i = head; i < tail+1; i++){bigData[i] = data[i];}
+            data = bigData;
+            tail++;
         }
         data[tail] = value;
     }
@@ -61,9 +66,7 @@ public class MyRingArrayQueue<T> implements MyQueue {
 
     @Override
     public int size() {
-        if(head < 0){return 0;}
-        if(tail < head){return data.length-(head-tail);}
-        if(tail == head && head > 0){return data.length;}
-        else{return (tail-head)+1;}
+        if(head == -1){return 0;}
+        return tail - head + 1 + (head <= tail ? 0 : data.length);
     }
 }

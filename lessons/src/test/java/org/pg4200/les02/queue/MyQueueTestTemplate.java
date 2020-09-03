@@ -125,7 +125,7 @@ public abstract class MyQueueTestTemplate {
     @Test
     public void testManyInsertionWithLargeSize(){
 
-        int n = 1_000;
+        int n = 20;
 
         for(int i=0; i< n; i++){
             queue.enqueue(i);
